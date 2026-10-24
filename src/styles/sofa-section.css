@@ -1,0 +1,943 @@
+/* ==========================================================================
+   NextFurn Overseas - Sofa Collection section
+   Curved cream hero + promo inset, category capsule, featured sofa carousel
+   ========================================================================== */
+
+.sofa-section {
+  --sofa-green: #0f3d2e;
+  --sofa-green-dark: #0a2c21;
+  --sofa-copper: #a94f1c;
+  --sofa-copper-light: #c47a45;
+  --sofa-cream: #f8f4ed;
+  --sofa-gap: clamp(14px, 1.3vw, 20px);
+
+  position: relative;
+  padding-bottom: clamp(40px, 5vh, 64px);
+  background: var(--sofa-cream);
+  color: #17211b;
+  overflow: hidden;
+}
+
+.sofa-section__defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* ---------- Shared buttons ---------- */
+.sofa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(18px, 2vw, 30px);
+  padding: 5px 5px 5px clamp(20px, 2vw, 30px);
+  border-radius: 999px;
+  background: var(--sofa-green);
+  color: #ffffff;
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(10, 44, 33, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, translate 0.3s var(--ease-out), scale 0.15s ease;
+}
+
+.sofa-btn--copper {
+  background: linear-gradient(90deg, #b5602d, #a24c1c);
+  box-shadow: 0 8px 20px rgba(120, 52, 16, 0.3);
+}
+
+.sofa-btn__circle {
+  display: grid;
+  place-items: center;
+  width: clamp(40px, 3vw, 46px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #17211b;
+}
+
+.sofa-btn__circle svg {
+  width: 50%;
+  height: 50%;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.sofa-btn:hover,
+.sofa-btn:focus-visible {
+  background: var(--sofa-green-dark);
+  box-shadow: 0 14px 28px rgba(10, 44, 33, 0.28);
+  translate: 0 -2px;
+}
+
+.sofa-btn--copper:hover,
+.sofa-btn--copper:focus-visible {
+  background: linear-gradient(90deg, #a9551f, #8f3f14);
+  box-shadow: 0 14px 28px rgba(120, 52, 16, 0.36);
+}
+
+.sofa-btn:hover .sofa-btn__circle svg,
+.sofa-btn:focus-visible .sofa-btn__circle svg {
+  transform: translateX(3px);
+}
+
+.sofa-btn:active,
+.sofa-round:active,
+.sofa-card__cart:active {
+  scale: 0.97;
+}
+
+.sofa-round {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: clamp(46px, 3.9vw, 60px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1d2420;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(60, 42, 24, 0.12);
+  transition: translate 0.3s var(--ease-out), box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, scale 0.15s ease;
+}
+
+.sofa-round svg {
+  width: 42%;
+  height: 42%;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.sofa-round:hover,
+.sofa-round:focus-visible {
+  translate: 0 -2px;
+  background: var(--sofa-green);
+  color: #ffffff;
+  box-shadow: 0 12px 26px rgba(10, 44, 33, 0.22);
+}
+
+.sofa-round[aria-label^="Next"]:hover svg {
+  transform: translateX(2px);
+}
+
+.sofa-round[aria-label^="Previous"]:hover svg {
+  transform: translateX(-2px);
+}
+
+.sofa-btn:focus-visible,
+.sofa-round:focus-visible,
+.sofa-strip__item:focus-visible,
+.sofa-card__like:focus-visible,
+.sofa-card__cart:focus-visible {
+  outline: 2px solid var(--sofa-copper);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   Hero
+   ========================================= */
+.sofa-hero {
+  position: relative;
+  height: clamp(440px, 32.3vw, 600px);
+}
+
+.sofa-hero__photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 36%;
+  overflow: hidden;
+}
+
+.sofa-hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
+
+/* Cream panel overlapping the photo with its oversized curved edge */
+.sofa-hero__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 46%;
+}
+
+.sofa-hero__panel-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, #fbf8f3 0%, var(--sofa-cream) 60%);
+  clip-path: url(#sofa-clip-panel);
+}
+
+.sofa-hero__panel-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.sofa-hero__panel-line path {
+  fill: none;
+  stroke: #b8703f;
+  stroke-width: 1.5;
+}
+
+.sofa-hero__content {
+  position: relative;
+  max-width: 80%;
+  padding: clamp(26px, 2.9vw, 46px) 0 0 clamp(22px, 3.9vw, 60px);
+}
+
+.sofa-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 clamp(10px, 1.05vw, 16px);
+  font-size: clamp(11.5px, 0.95vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--sofa-copper);
+}
+
+.sofa-eyebrow__line {
+  width: clamp(32px, 3.3vw, 52px);
+  height: 1.5px;
+  background: var(--sofa-copper);
+}
+
+.sofa-hero__title {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 3.95vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--sofa-green);
+}
+
+.sofa-hero__title span {
+  display: block;
+  margin-top: 0.06em;
+  color: #9a4317;
+}
+
+.sofa-hero__text {
+  max-width: 300px;
+  margin: clamp(10px, 1.15vw, 18px) 0 0;
+  font-size: clamp(14px, 1.14vw, 17.5px);
+  line-height: 1.45;
+  color: #48514b;
+}
+
+.sofa-hero__benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px clamp(14px, 1.6vw, 26px);
+  margin: clamp(12px, 1.5vw, 22px) 0 clamp(14px, 1.7vw, 26px);
+  padding: 0;
+  list-style: none;
+}
+
+.sofa-hero__benefits li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: clamp(11.5px, 0.85vw, 13.5px);
+  line-height: 1.3;
+  color: #2c332e;
+}
+
+.sofa-hero__benefit-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: clamp(30px, 2.5vw, 38px);
+  aspect-ratio: 1;
+  border: 1.4px solid #c48356;
+  border-radius: 50%;
+  color: var(--sofa-copper);
+}
+
+.sofa-hero__benefit-icon svg {
+  width: 56%;
+  height: 56%;
+}
+
+/* Green swoosh in the bottom-left corner, continued by the featured panel */
+.sofa-hero__swoosh {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 54.35%; /* 25% of the hero, inside the 46%-wide panel */
+  height: 11%;
+  background: var(--sofa-green);
+  clip-path: url(#sofa-clip-swoosh);
+}
+
+/* Copy that sits on the green area built into the hero photo */
+.sofa-hero__promo {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  color: #ffffff;
+}
+
+.sofa-hero__script {
+  position: absolute;
+  top: 5%;
+  left: 75.2%;
+  margin: 0;
+  font-family: "Great Vibes", "Segoe Script", cursive;
+  font-size: clamp(20px, 2vw, 34px);
+  line-height: 1.05;
+  transform: rotate(-5deg);
+  transform-origin: left center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+.sofa-hero__promo-line {
+  position: absolute;
+  top: 26.5%;
+  left: 75.5%;
+  width: 34px;
+  height: 1.5px;
+  background: #d39467;
+}
+
+.sofa-hero__promo-label {
+  position: absolute;
+  top: 35%;
+  left: 74.8%;
+  margin: 0;
+  font-size: clamp(9px, 0.68vw, 10.5px);
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sofa-hero__badge {
+  position: absolute;
+  top: 54%;
+  left: 84.2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: clamp(96px, 8.7vw, 138px);
+  aspect-ratio: 1;
+  margin: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #c06a32 0%, #a94f1c 60%, #8e3f13 100%);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 0 0 5px rgba(169, 79, 28, 0.9), 0 14px 30px rgba(0, 0, 0, 0.28);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.sofa-hero__badge span {
+  font-size: clamp(11px, 0.95vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.sofa-hero__badge strong {
+  margin: 0.12em 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(30px, 2.8vw, 44px);
+  font-weight: 700;
+}
+
+/* =========================================
+   Category capsule
+   ========================================= */
+.sofa-strip {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 16px);
+  margin: 0 clamp(10px, 1.3vw, 20px);
+  padding: clamp(8px, 0.8vw, 12px) clamp(12px, 2.6vw, 40px);
+  border-radius: 999px;
+  background: #fbf8f3;
+  box-shadow: 0 16px 36px rgba(60, 42, 24, 0.1), 0 2px 6px rgba(60, 42, 24, 0.04);
+}
+
+.sofa-strip__list {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  min-width: 0;
+  margin: 0;
+  padding: 2px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.sofa-strip__list::-webkit-scrollbar {
+  display: none;
+}
+
+.sofa-strip__list li {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  scroll-snap-align: center;
+}
+
+.sofa-strip__list li + li::before {
+  content: "";
+  position: absolute;
+  top: 22%;
+  bottom: 22%;
+  left: 0;
+  width: 1px;
+  background: rgba(60, 42, 24, 0.1);
+}
+
+.sofa-strip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 0.7vw, 10px);
+  min-width: clamp(118px, 10vw, 156px);
+  padding: clamp(10px, 1vw, 14px) clamp(10px, 1vw, 16px);
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  color: #26302a;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.sofa-strip__thumb {
+  display: block;
+  width: clamp(92px, 8vw, 124px);
+  aspect-ratio: 2 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e8e1d6;
+}
+
+.sofa-strip__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: transform 0.6s var(--ease-out), filter 0.4s ease;
+}
+
+.sofa-strip__label {
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sofa-strip__item:hover .sofa-strip__thumb img {
+  transform: scale(1.08);
+}
+
+.sofa-strip__item:hover {
+  color: var(--sofa-green);
+}
+
+.sofa-strip__item.is-active {
+  background: var(--sofa-green);
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(10, 44, 33, 0.25);
+}
+
+/* =========================================
+   Featured sofas
+   ========================================= */
+.sofa-feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, 26%) minmax(0, 1fr);
+  margin-top: clamp(14px, 2vw, 28px);
+}
+
+.sofa-feature__panel {
+  position: relative;
+}
+
+/* One sculpted green shape running up behind the capsule to meet the hero swoosh */
+.sofa-feature__shape {
+  position: absolute;
+  top: calc(-1 * (clamp(110px, 9.2vw, 150px) + clamp(14px, 2vw, 28px)));
+  bottom: calc(-1 * clamp(40px, 5vh, 64px));
+  left: 0;
+  width: 106%;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0f4331 0%, var(--sofa-green) 50%, #0a3326 100%);
+  clip-path: url(#sofa-clip-feature);
+}
+
+.sofa-feature__leaves {
+  position: absolute;
+  left: -2%;
+  bottom: -2%;
+  width: 46%;
+  height: auto;
+}
+
+.sofa-feature__content {
+  position: relative;
+  z-index: 1;
+  padding: clamp(28px, 3.6vw, 56px) 24px clamp(60px, 7vw, 100px) clamp(24px, 5.2vw, 80px);
+}
+
+.sofa-feature__eyebrow {
+  margin: 0 0 clamp(12px, 1.3vw, 18px);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: #d4925e;
+}
+
+.sofa-feature__title {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 2.9vw, 44px);
+  font-weight: 700;
+  line-height: 1.08;
+  color: #ffffff;
+}
+
+.sofa-feature__text {
+  max-width: 270px;
+  margin: clamp(14px, 1.5vw, 22px) 0 clamp(18px, 2vw, 28px);
+  font-size: clamp(14px, 1.08vw, 16.5px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ---------- Carousel ---------- */
+.sofa-carousel {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding: clamp(18px, 2.2vw, 34px) clamp(26px, 2.8vw, 44px) 0 clamp(8px, 0.8vw, 14px);
+}
+
+.sofa-carousel__viewport {
+  overflow: hidden;
+  margin: -14px -8px -26px;
+  padding: 14px 8px 26px;
+}
+
+.sofa-carousel__track {
+  display: flex;
+  gap: var(--sofa-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateX(calc(var(--index) * -1 * (100% + var(--sofa-gap)) / var(--pv)));
+  transition: transform var(--slide-ms) cubic-bezier(0.55, 0.05, 0.25, 1);
+  will-change: transform;
+}
+
+.sofa-slide {
+  flex: 0 0 calc((100% - (var(--pv) - 1) * var(--sofa-gap)) / var(--pv));
+  min-width: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.sofa-slide.is-visible {
+  opacity: 1;
+}
+
+.sofa-carousel__track.no-anim,
+.sofa-carousel__track.no-anim .sofa-slide {
+  transition: none;
+}
+
+.sofa-card {
+  height: 100%;
+  padding: 8px;
+  border-radius: 16px;
+  background: #fffdf9;
+  box-shadow: 0 10px 26px rgba(60, 42, 24, 0.08), 0 2px 6px rgba(60, 42, 24, 0.04);
+  transition: translate 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+}
+
+.sofa-card:hover {
+  translate: 0 -6px;
+  box-shadow: 0 22px 44px rgba(60, 42, 24, 0.15), 0 4px 10px rgba(60, 42, 24, 0.05);
+}
+
+.sofa-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e8e1d6;
+}
+
+.sofa-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: transform 700ms ease;
+}
+
+.sofa-card:hover .sofa-card__media img {
+  transform: scale(1.05);
+}
+
+.sofa-card__like {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1f2622;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  transition: transform 0.3s var(--ease-out), color 0.25s ease;
+}
+
+.sofa-card__like svg {
+  width: 19px;
+  height: 19px;
+}
+
+.sofa-card__like:hover,
+.sofa-card__like:focus-visible {
+  transform: scale(1.1);
+  color: var(--sofa-copper);
+}
+
+.sofa-card__like.is-liked {
+  color: #c2410c;
+}
+
+.sofa-card__like.is-liked svg {
+  fill: currentColor;
+}
+
+.sofa-card__body {
+  padding: 16px 8px 6px;
+}
+
+.sofa-card__name {
+  margin: 0 0 8px;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(15px, 1.1vw, 17.5px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #17211b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sofa-card__rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.sofa-card__stars {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.sofa-star {
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  color: #ecdcc7;
+}
+
+.sofa-star svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+
+.sofa-star__fill {
+  position: absolute;
+  inset: 0;
+  width: var(--fill);
+  overflow: hidden;
+  color: #e07b2a;
+}
+
+.sofa-card__reviews {
+  font-size: 13.5px;
+  color: #4d5550;
+}
+
+.sofa-card__size {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  color: #6b716d;
+}
+
+.sofa-card__alt {
+  margin: -8px 0 12px;
+  font-size: 12.5px;
+  color: #6b716d;
+}
+
+.sofa-card__price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin: 12px 0 12px;
+}
+
+.sofa-card__price {
+  font-size: clamp(17px, 1.3vw, 21px);
+  font-weight: 600;
+}
+
+.sofa-card__mrp {
+  font-size: 12.5px;
+  color: #6f7571;
+}
+
+.sofa-card__off {
+  margin-left: auto;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #ddeee1;
+  color: #1f5f3a;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sofa-card__cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  padding: 0 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--sofa-green);
+  color: #ffffff;
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, scale 0.15s ease;
+}
+
+.sofa-card__cart svg {
+  position: absolute;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.sofa-card__cart:hover,
+.sofa-card__cart:focus-visible {
+  background: var(--sofa-green-dark);
+  box-shadow: 0 10px 22px rgba(10, 44, 33, 0.25);
+}
+
+.sofa-card__cart:hover svg {
+  transform: translateX(3px);
+}
+
+.sofa-card__cart.is-added {
+  background: #1f5f3a;
+}
+
+.sofa-dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: clamp(16px, 2vw, 24px);
+}
+
+.sofa-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #d9d0c3;
+  transition: width 0.4s var(--ease-out), background-color 0.3s ease;
+}
+
+.sofa-dot.is-active {
+  width: 20px;
+  background: var(--sofa-copper);
+}
+
+/* =========================================
+   Tablet
+   ========================================= */
+@media (max-width: 1100px) {
+  .sofa-hero__benefits li {
+    font-size: 11.5px;
+  }
+
+  .sofa-hero__content {
+    max-width: 86%;
+  }
+}
+
+@media (max-width: 900px) {
+  .sofa-hero {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sofa-hero__panel {
+    position: relative;
+    order: -1;
+    width: 100%;
+  }
+
+  .sofa-hero__panel-bg {
+    clip-path: none;
+  }
+
+  .sofa-hero__panel-line,
+  .sofa-hero__swoosh,
+  .sofa-hero__script,
+  .sofa-hero__promo-line,
+  .sofa-hero__promo-label {
+    display: none;
+  }
+
+  .sofa-hero__content {
+    max-width: 640px;
+    padding: 40px var(--gutter) 32px;
+  }
+
+  .sofa-hero__photo {
+    position: relative;
+    left: auto;
+    height: 58vw;
+    min-height: 260px;
+    margin: 0 var(--gutter);
+    border-radius: 28px 120px 28px 28px;
+  }
+
+  .sofa-hero__photo img {
+    object-position: 40% 20%;
+  }
+
+  .sofa-hero__promo {
+    top: auto;
+  }
+
+  .sofa-hero__badge {
+    top: auto;
+    left: auto;
+    right: calc(var(--gutter) + 14px);
+    bottom: 14px;
+    width: 92px;
+  }
+
+  .sofa-strip {
+    margin-top: 24px;
+  }
+
+  .sofa-strip__list {
+    justify-content: flex-start;
+  }
+
+  .sofa-feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sofa-feature__shape {
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    clip-path: none;
+    border-radius: 0 140px 140px 0 / 0 90px 90px 0;
+  }
+
+  .sofa-feature__panel {
+    margin-right: var(--gutter);
+  }
+
+  .sofa-feature__content {
+    padding: 40px var(--gutter) 48px;
+  }
+
+  .sofa-carousel {
+    padding: 28px var(--gutter) 0;
+  }
+}
+
+/* =========================================
+   Mobile
+   ========================================= */
+@media (max-width: 560px) {
+  .sofa-eyebrow {
+    gap: 12px;
+    letter-spacing: 0.28em;
+  }
+
+  .sofa-hero__benefits {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sofa-hero__photo {
+    border-radius: 22px 70px 22px 22px;
+  }
+
+  .sofa-strip {
+    border-radius: 28px;
+    padding: 8px;
+  }
+
+  .sofa-strip .sofa-round {
+    display: none;
+  }
+
+  .sofa-strip__item {
+    min-width: 112px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sofa-btn,
+  .sofa-round,
+  .sofa-strip__item,
+  .sofa-strip__thumb img,
+  .sofa-carousel__track,
+  .sofa-slide,
+  .sofa-card,
+  .sofa-card__media img,
+  .sofa-card__cart {
+    transition: none;
+  }
+}

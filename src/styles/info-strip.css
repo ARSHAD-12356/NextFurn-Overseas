@@ -1,0 +1,81 @@
+/* Thin green info ribbon with a seamless marquee (the row is rendered twice) */
+.ns-strip {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  background: linear-gradient(90deg, #00382a, #0b4a37 50%, #00382a);
+  border-top: 1.5px solid #c87935;
+  border-bottom: 1.5px solid #c87935;
+  color: #f6efe4;
+}
+
+.ns-strip::before,
+.ns-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: clamp(30px, 6vw, 110px);
+  pointer-events: none;
+}
+
+.ns-strip::before { left: 0; background: linear-gradient(90deg, #00382a, rgba(0, 56, 42, 0)); }
+.ns-strip::after { right: 0; background: linear-gradient(270deg, #00382a, rgba(0, 56, 42, 0)); }
+
+.ns-track {
+  display: flex;
+  width: max-content;
+  animation: ns-marquee 38s linear infinite;
+}
+
+.ns-strip:hover .ns-track { animation-play-state: paused; }
+
+@keyframes ns-marquee {
+  to { transform: translateX(-50%); }
+}
+
+.ns-row {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ns-row li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(11px, 1vw, 15px) 0;
+  font-size: clamp(12.5px, 0.95vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ns-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1.4px solid #e6a34a;
+  border-radius: 50%;
+  color: #e6a34a;
+}
+
+.ns-icon svg { width: 54%; height: 54%; }
+
+.ns-dot {
+  width: 6px;
+  height: 6px;
+  margin: 0 clamp(22px, 2.6vw, 44px);
+  border-radius: 50%;
+  background: #c87935;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-track { animation: none; }
+  .ns-strip { overflow-x: auto; }
+}

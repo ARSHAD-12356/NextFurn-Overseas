@@ -1,0 +1,400 @@
+/* ==========================================================================
+   NextFurn Overseas - "Explore Our Furniture Range" category section
+   Wide alternating cards in three viewport-sized screens (2 + 3 + 2)
+   ========================================================================== */
+
+.cat-section {
+  --cat-green: #17382a;
+  --cat-copper: #b5602d;
+  --cat-gap: clamp(14px, 2.2vh, 24px);
+  --cat-screen-pad: clamp(18px, 3vh, 36px);
+  --cat-h: clamp(210px, calc((100svh - 2 * var(--cat-screen-pad) - 2 * var(--cat-gap)) / 3), 300px);
+
+  position: relative;
+  padding: 0 var(--gutter);
+  background: #faf6ef;
+  color: #17211b;
+  overflow: hidden;
+}
+
+.cat-section__defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.cat-section__screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--cat-screen-pad) 0;
+}
+
+/* Last screen holds only two cards: start them right after screen 2 instead of centring */
+.cat-section__screen--3 {
+  min-height: 0;
+  justify-content: flex-start;
+  padding-top: 0;
+  padding-bottom: clamp(48px, 8vh, 96px);
+}
+
+/* Section header */
+.cat-section__header {
+  margin-bottom: clamp(20px, 3.4vh, 36px);
+  text-align: center;
+}
+
+.cat-section__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 clamp(8px, 1.4vh, 14px);
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #a8693a;
+}
+
+.cat-section__eyebrow-line {
+  width: clamp(36px, 3.4vw, 52px);
+  height: 1px;
+  background: #c68a5c;
+}
+
+.cat-section__title {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 3.9vw, 58px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--cat-green);
+}
+
+.cat-section__title-accent {
+  background: linear-gradient(90deg, #c97c3c 0%, #b8592a 55%, #9b2f1b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cat-section__subtitle {
+  margin: clamp(8px, 1.4vh, 14px) 0 0;
+  font-size: clamp(14px, 1.05vw, 17px);
+  color: #555e57;
+}
+
+.cat-section__list {
+  display: grid;
+  gap: var(--cat-gap);
+}
+
+/* =========================================
+   Category card
+   ========================================= */
+.cat-card {
+  --cat-accent: var(--cat-green);
+  --cat-tint: #eef1ec;
+  --cat-btn: var(--cat-green);
+  --cat-btn-hover: #0e2219;
+
+  position: relative;
+  height: var(--cat-h);
+  border-radius: 20px;
+  background: #fffdf9;
+  box-shadow: 0 10px 30px rgba(60, 42, 24, 0.07), 0 2px 6px rgba(60, 42, 24, 0.04);
+  overflow: hidden;
+  isolation: isolate;
+  transition: translate 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+.cat-card--copper {
+  --cat-accent: #cf9364;
+  --cat-tint: #fbefe4;
+  --cat-btn: var(--cat-copper);
+  --cat-btn-hover: #974c21;
+}
+
+.cat-card:hover {
+  translate: 0 -4px;
+  box-shadow: 0 22px 48px rgba(60, 42, 24, 0.13), 0 4px 10px rgba(60, 42, 24, 0.05);
+}
+
+/* Photo with its curved edge, plus the coloured band that follows the curve */
+.cat-card__media,
+.cat-card__accent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+}
+
+.cat-card__accent {
+  z-index: 0;
+  background: var(--cat-accent);
+  clip-path: url(#cat-clip-accent);
+}
+
+.cat-card__media {
+  z-index: 1;
+  overflow: hidden;
+  background: #e8e3dc;
+  clip-path: url(#cat-clip-media);
+}
+
+.cat-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.9s var(--ease-out);
+}
+
+.cat-card:hover .cat-card__img {
+  scale: 1.04;
+}
+
+.cat-card--reversed .cat-card__media,
+.cat-card--reversed .cat-card__accent {
+  right: auto;
+  left: 0;
+}
+
+.cat-card--reversed .cat-card__media {
+  clip-path: url(#cat-clip-media-rev);
+}
+
+.cat-card--reversed .cat-card__accent {
+  clip-path: url(#cat-clip-accent-rev);
+}
+
+/* First card: top-left ribbon that flows into the band */
+.cat-card--swoosh::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--cat-accent);
+  clip-path: url(#cat-clip-swoosh);
+}
+
+/* Content panel */
+.cat-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  height: 100%;
+  padding: 0 clamp(16px, 2vw, 32px) 0 clamp(28px, 5.4vw, 84px);
+}
+
+.cat-card--reversed .cat-card__content {
+  width: 39%;
+  margin-left: 61%;
+  padding: 0 clamp(16px, 2vw, 32px) 0 clamp(12px, 1.6vw, 24px);
+}
+
+.cat-card__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: clamp(8px, 1.4vh, 14px);
+}
+
+.cat-card__number {
+  font-size: clamp(18px, 1.5vw, 24px);
+  font-weight: 300;
+  line-height: 1;
+  color: #4a514c;
+}
+
+.cat-card__line {
+  width: clamp(36px, 3.4vw, 52px);
+  height: 1px;
+  background: #bdbab2;
+}
+
+.cat-card__body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(14px, 1.7vw, 26px);
+}
+
+.cat-card__icon {
+  display: grid;
+  place-items: center;
+  width: clamp(48px, 4.2vw, 64px);
+  aspect-ratio: 1;
+  margin-top: 4px;
+  border-radius: 14px;
+  background: var(--cat-tint);
+  color: #262a27;
+}
+
+.cat-card__icon svg {
+  width: 52%;
+  height: 52%;
+  stroke-width: 1.5;
+}
+
+.cat-card__title {
+  margin: 0 0 clamp(4px, 0.8vh, 8px);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(19px, 1.75vw, 28px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #17211b;
+}
+
+.cat-card__desc {
+  max-width: 32ch;
+  margin: 0 0 clamp(10px, 1.6vh, 16px);
+  font-size: clamp(13px, 0.98vw, 15px);
+  line-height: 1.45;
+  color: #5b625d;
+}
+
+/* Pill button with circular arrow */
+.cat-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(14px, 1.6vw, 26px);
+  padding: 4px 4px 4px clamp(16px, 1.4vw, 22px);
+  border-radius: 999px;
+  background: var(--cat-btn);
+  color: #ffffff;
+  font-size: clamp(12.5px, 0.92vw, 14px);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(14, 34, 25, 0.16);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cat-card__btn-circle {
+  display: grid;
+  place-items: center;
+  width: clamp(30px, 2.4vw, 36px);
+  aspect-ratio: 1;
+  border: 2px solid #c98352;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #b5602d;
+}
+
+.cat-card__btn-circle svg {
+  width: 55%;
+  height: 55%;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.cat-card__btn:hover,
+.cat-card__btn:focus-visible {
+  background: var(--cat-btn-hover);
+  box-shadow: 0 10px 22px rgba(14, 34, 25, 0.24);
+}
+
+.cat-card:hover .cat-card__btn-circle svg,
+.cat-card__btn:focus-visible .cat-card__btn-circle svg {
+  transform: translateX(3px);
+}
+
+/* =========================================
+   Tablet
+   ========================================= */
+@media (max-width: 1024px) {
+  .cat-section {
+    --cat-h: clamp(200px, calc((100svh - 2 * var(--cat-screen-pad) - 2 * var(--cat-gap)) / 3), 260px);
+  }
+
+  .cat-card__media,
+  .cat-card__accent {
+    width: 56%;
+  }
+
+  .cat-card__content {
+    width: 50%;
+    padding-left: clamp(22px, 3.4vw, 40px);
+  }
+
+  .cat-card--reversed .cat-card__content {
+    width: 46%;
+    margin-left: 54%;
+  }
+
+  .cat-card__desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* =========================================
+   Mobile: image on top, content below
+   ========================================= */
+@media (max-width: 720px) {
+  .cat-section__screen {
+    min-height: 0;
+    padding: 0 0 var(--cat-gap);
+  }
+
+  .cat-section__screen--1 {
+    padding-top: 56px;
+  }
+
+  .cat-section__screen--3 {
+    padding-bottom: 56px;
+  }
+
+  .cat-card {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .cat-card--swoosh::before,
+  .cat-card__accent {
+    display: none;
+  }
+
+  .cat-card__media,
+  .cat-card--reversed .cat-card__media {
+    position: relative;
+    order: -1;
+    width: 100%;
+    height: 210px;
+    clip-path: none;
+    border-bottom: 4px solid var(--cat-accent);
+  }
+
+  .cat-card__content,
+  .cat-card--reversed .cat-card__content {
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+    padding: 20px 20px 24px;
+  }
+
+  .cat-card__desc {
+    display: block;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-card,
+  .cat-card__img,
+  .cat-card__btn,
+  .cat-card__btn-circle svg {
+    transition: none;
+  }
+}
